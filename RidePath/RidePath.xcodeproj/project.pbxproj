@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09C7971D1E3CF04E00D81395 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7971C1E3CF04E00D81395 /* MapViewController.swift */; };
+		09C7971F1E3CF05B00D81395 /* RidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7971E1E3CF05B00D81395 /* RidesViewController.swift */; };
+		09C797211E3CF06100D81395 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C797201E3CF06100D81395 /* ProfileViewController.swift */; };
 		63066DB81E3CED42002E2478 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63066DB71E3CED42002E2478 /* AppDelegate.swift */; };
 		63066DBA1E3CED43002E2478 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63066DB91E3CED43002E2478 /* ViewController.swift */; };
 		63066DBD1E3CED43002E2478 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63066DBB1E3CED43002E2478 /* Main.storyboard */; };
@@ -36,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09C7971C1E3CF04E00D81395 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		09C7971E1E3CF05B00D81395 /* RidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RidesViewController.swift; sourceTree = "<group>"; };
+		09C797201E3CF06100D81395 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1D5E80966578F23A0D42BE6D /* Pods_RidePath.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RidePath.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63066DB41E3CED42002E2478 /* RidePath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RidePath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63066DB71E3CED42002E2478 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +124,9 @@
 				63066DE51E3CEED1002E2478 /* GoogleService-Info.plist */,
 				63066DB71E3CED42002E2478 /* AppDelegate.swift */,
 				63066DB91E3CED43002E2478 /* ViewController.swift */,
+				09C7971C1E3CF04E00D81395 /* MapViewController.swift */,
+				09C7971E1E3CF05B00D81395 /* RidesViewController.swift */,
+				09C797201E3CF06100D81395 /* ProfileViewController.swift */,
 				63066DBB1E3CED43002E2478 /* Main.storyboard */,
 				63066DBE1E3CED43002E2478 /* Assets.xcassets */,
 				63066DC01E3CED43002E2478 /* LaunchScreen.storyboard */,
@@ -342,6 +351,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				63066DBA1E3CED43002E2478 /* ViewController.swift in Sources */,
+				09C7971D1E3CF04E00D81395 /* MapViewController.swift in Sources */,
+				09C797211E3CF06100D81395 /* ProfileViewController.swift in Sources */,
+				09C7971F1E3CF05B00D81395 /* RidesViewController.swift in Sources */,
 				63066DB81E3CED42002E2478 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
