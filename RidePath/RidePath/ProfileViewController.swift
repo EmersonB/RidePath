@@ -7,20 +7,59 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 let kHomeAddressKey = "kHomeAddressKey"
+var ref: FIRDatabaseReference!
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet var userImage: UIImageView!
+    @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var usernameOutlet: UITextField!
+    @IBOutlet var carModelOutlet: UITextField!
+    @IBOutlet var seatsOutlet: UITextField!
+    @IBOutlet var homeOutlet: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.userImage.layer.cornerRadius = self.userImage.frame.size.width / 2;
+        self.userImage.clipsToBounds = true;
+        
+
+        ref = FIRDatabase.database().reference()
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let username = value?["username"] as? String ?? ""
+            let carmodel = value?["carmodel"] as? String ?? ""
+            let seats = value?["seats"] as? String ?? ""
+            let homeaddress = value?["homeaddress"] as? String ?? ""
+            
+            self.usernameLabel.text = username
+            self.usernameOutlet.text = username
+            self.carModelOutlet.text = carmodel
+            self.seatsOutlet.text = seats
+            self.homeOutlet.text = homeaddress
+
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func didTapUpdate(_ sender: Any) {
+        if let userID = FIRAuth.auth()?.currentUser?.uid{
+        ref.child("users").child(userID).setValue(["username": usernameOutlet.text,"carmodel": carModelOutlet.text,"seats": seatsOutlet.text,"homeaddress": homeOutlet.text])
+        usernameLabel.text = usernameOutlet.text
+        }
     }
     
 
