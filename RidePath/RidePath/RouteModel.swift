@@ -14,12 +14,35 @@ class RouteModel {
     
     var routes: [Route]!
     
+    init() {
+        loadRoutes()
+    }
+    
+    func addRoute(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D) {
+        routes.append(Route(start: start, end: end))
+        saveRoutes()
+    }
+    
     func loadRoutes() {
         // TODO: Load routes from file
     }
     
     func saveRoutes() {
         // TODO: Save routes to file
+    }
+}
+
+class RideModel {
+    static let sharedInstance = RideModel()
+    
+    var rides: [Ride]!
+    
+    func loadRides() {
+        // TODO: Load rides from file
+    }
+    
+    func saveRides() {
+        // TODO: Save rides to file
     }
 }
 
@@ -42,5 +65,26 @@ class Route : NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(startCoordinate, forKey: "self.startCoordinate")
         aCoder.encode(endCoordinate, forKey: "self.endCoordinate")
+    }
+}
+
+class Ride : NSObject, NSCoding {
+    var route: Route!
+    var partnerID: String! // UID that can retrieve user from Firebase
+    
+    init(r: Route, partner: String) {
+        route = r
+        partnerID = partner
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        route = aDecoder.decodeObject(forKey: "self.route") as! Route
+        partnerID = aDecoder.decodeObject(forKey: "self.partnerID") as! String
+        super.init()
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(route, forKey: "self.route")
+        aCoder.encode(partnerID, forKey: "self.partnerID")
     }
 }

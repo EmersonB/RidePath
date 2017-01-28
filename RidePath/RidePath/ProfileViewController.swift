@@ -8,6 +8,8 @@
 
 import UIKit
 
+let kHomeAddressKey = "kHomeAddressKey"
+
 class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
