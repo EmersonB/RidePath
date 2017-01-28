@@ -14,6 +14,7 @@
 		63066DC21E3CED43002E2478 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63066DC01E3CED43002E2478 /* LaunchScreen.storyboard */; };
 		63066DCD1E3CED43002E2478 /* RidePathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63066DCC1E3CED43002E2478 /* RidePathTests.swift */; };
 		63066DD81E3CED43002E2478 /* RidePathUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63066DD71E3CED43002E2478 /* RidePathUITests.swift */; };
+		63066DE61E3CEED1002E2478 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63066DE51E3CEED1002E2478 /* GoogleService-Info.plist */; };
 		E09B3D7EB2F7C11ADD0E37B7 /* Pods_RidePath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5E80966578F23A0D42BE6D /* Pods_RidePath.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		63066DD31E3CED43002E2478 /* RidePathUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RidePathUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63066DD71E3CED43002E2478 /* RidePathUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RidePathUITests.swift; sourceTree = "<group>"; };
 		63066DD91E3CED43002E2478 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63066DE51E3CEED1002E2478 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9C416E59BC76B5C09783ABA0 /* Pods-RidePath.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RidePath.release.xcconfig"; path = "Pods/Target Support Files/Pods-RidePath/Pods-RidePath.release.xcconfig"; sourceTree = "<group>"; };
 		F4A87B39EC86B201187FDEEC /* Pods-RidePath.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RidePath.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RidePath/Pods-RidePath.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +115,7 @@
 		63066DB61E3CED42002E2478 /* RidePath */ = {
 			isa = PBXGroup;
 			children = (
+				63066DE51E3CEED1002E2478 /* GoogleService-Info.plist */,
 				63066DB71E3CED42002E2478 /* AppDelegate.swift */,
 				63066DB91E3CED43002E2478 /* ViewController.swift */,
 				63066DBB1E3CED43002E2478 /* Main.storyboard */,
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63066DC21E3CED43002E2478 /* LaunchScreen.storyboard in Resources */,
+				63066DE61E3CEED1002E2478 /* GoogleService-Info.plist in Resources */,
 				63066DBF1E3CED43002E2478 /* Assets.xcassets in Resources */,
 				63066DBD1E3CED43002E2478 /* Main.storyboard in Resources */,
 			);
@@ -591,6 +595,7 @@
 				63066DDE1E3CED43002E2478 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63066DDF1E3CED43002E2478 /* Build configuration list for PBXNativeTarget "RidePathTests" */ = {
 			isa = XCConfigurationList;
@@ -599,6 +604,7 @@
 				63066DE11E3CED43002E2478 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63066DE21E3CED43002E2478 /* Build configuration list for PBXNativeTarget "RidePathUITests" */ = {
 			isa = XCConfigurationList;
@@ -607,6 +613,7 @@
 				63066DE41E3CED43002E2478 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
