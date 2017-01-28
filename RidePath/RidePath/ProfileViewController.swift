@@ -11,10 +11,10 @@ import Firebase
 import FirebaseAuth
 
 let kHomeAddressKey = "kHomeAddressKey"
-var ref: FIRDatabaseReference!
 
 class ProfileViewController: UIViewController {
 
+    var ref: FIRDatabaseReference!
     @IBOutlet var userImage: UIImageView!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var usernameOutlet: UITextField!

@@ -33,7 +33,7 @@ class RouteModel {
     
     func saveRoutes() {
         if let userID = FIRAuth.auth()?.currentUser?.uid {
-            ref = FIRDatabase.database().reference().child("users/\(userID)/routes")
+            let ref = FIRDatabase.database().reference().child("users/\(userID)/routes")
             for route in routes {
                 let childRef = ref.childByAutoId()
                 childRef.child("start").updateChildValues(["lat": route.startCoordinate.latitude, "long": route.startCoordinate.longitude])
