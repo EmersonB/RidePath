@@ -8,11 +8,12 @@
 
 import UIKit
 
-class RidesViewController: UIViewController {
+class RidesViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.register(UITableView.self, forCellReuseIdentifier: "cellID")
+        RideModel.sharedInstance.loadRides()
         // Do any additional setup after loading the view.
     }
 
@@ -21,6 +22,21 @@ class RidesViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func rideFor(indexPath: IndexPath) -> Ride {
+        return RideModel.sharedInstance.rides[indexPath.row]
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return RideModel.sharedInstance.rides.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        let ride = rideFor(indexPath: indexPath)
+        cell.textLabel?.text = ride.partnerID
+        
+        return cell
+    }
 
     /*
     // MARK: - Navigation
