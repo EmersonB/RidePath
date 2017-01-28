@@ -45,6 +45,7 @@ class RouteModel {
 }
 
 class RideModel {
+    let kMaxDistance = 8046.72
     static let sharedInstance = RideModel()
     var ref: FIRDatabaseReference!
     var rides: [Ride]!
@@ -110,12 +111,28 @@ class RideModel {
         }) { (error) in
             print(error.localizedDescription)
         }
-
+        
         return otherRides
     }
     
     func checkRides(myRoutes: [(CLLocation,CLLocation)], otherRides: [Ride]) {
-        
+        for route in myRoutes {
+            for otherRide in otherRides {
+                let myStart = route.0
+                let otherStart = CLLocation(latitude: otherRide.route.startCoordinate.latitude, longitude: otherRide.route.startCoordinate.longitude)
+                
+                let startDistance = myStart.distance(from: otherStart)
+                
+                let myEnd = route.1
+                let otherEnd = CLLocation(latitude: otherRide.route.endCoordinate.latitude, longitude: otherRide.route.endCoordinate.longitude)
+                
+                let endDistance = myEnd.distance(from: otherEnd)
+                
+                if startDistance <= kMaxDistance && endDistance <= kMaxDistance {
+                    rides.append(Ride(r: Route(start: route.0.coordinate, end: route.1.coordinate), partner: otherRide.partnerID))
+                }
+            }
+        }
     }
     
     func saveRides() {

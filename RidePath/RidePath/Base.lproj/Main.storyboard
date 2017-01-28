@@ -310,7 +310,7 @@
         <scene sceneID="OMH-RA-kcc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ViT-Sb-pxg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="UNP-M0-hZX"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="UNP-M0-hZX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="44V-WS-Toy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -329,7 +329,7 @@
         <scene sceneID="wzG-cv-bNo">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1WQ-Cd-mu7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Riders" id="q4h-cT-lBO"/>
+                    <tabBarItem key="tabBarItem" title="Riders" image="people" id="q4h-cT-lBO"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="axd-ZV-0zO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -377,7 +377,7 @@
         <scene sceneID="bzS-Gd-u1g">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="siv-xa-Dn6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="9eI-Aq-Mif"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="user" id="9eI-Aq-Mif"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mkq-nn-oAh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -398,6 +398,9 @@
         <image name="car-logo" width="128" height="128"/>
         <image name="cartoonbeachbg" width="375" height="245"/>
         <image name="defaultuser" width="60" height="60"/>
+        <image name="map" width="33" height="33"/>
+        <image name="people" width="33" height="33"/>
+        <image name="user" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wNW-2Q-lIq"/>
