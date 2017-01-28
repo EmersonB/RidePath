@@ -68,6 +68,9 @@ class RideModel {
                     myRoutes.append(start,end)
                 }
             }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         let otherRides = self.otherUserRides()
             
         self.checkRides(myRoutes: myRoutes, otherRides: otherRides)
@@ -77,34 +80,37 @@ class RideModel {
         // for each otherUserRides
             // if close to each other:
                 // self.rides.append(other ride)
-        }) { (error) in
-            print(error.localizedDescription)
-        }
         
+        // TODO: Load rides from file
+    }
+    
+    func otherUserRides() -> [Ride] {
+        var otherRides = [Ride]()
         ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
-            if let routes = snapshot.value as? NSDictionary{
-                for route in routes{
-                    let myRoute = route as! NSDictionary
-                    let startCoord = myRoute["start"] as! NSDictionary
-                    let endCoord = myRoute["end"] as! NSDictionary
-                    
-                    let start = CLLocation(latitude: startCoord["lat"] as! Double!, longitude: startCoord["long"] as! Double!)
-                    let end = CLLocation(latitude: endCoord["lat"] as! Double!, longitude: endCoord["long"] as! Double!)
-                    
-                    myRoutes.append(start,end)
+            if let users = snapshot.value as? NSDictionary{
+                for key in users.allKeys {
+                    let user = users[key] as? NSDictionary
+                    let userRoutes = user?["routes"] as! NSDictionary
+                    for routes in userRoutes{
+                        for route in (routes as? NSDictionary)!{
+                            let myRoute = route as! NSDictionary
+                            let startCoord = myRoute["start"] as! NSDictionary
+                            let endCoord = myRoute["end"] as! NSDictionary
+                            
+                            let start = CLLocation(latitude: startCoord["lat"] as! Double!, longitude: startCoord["long"] as! Double!)
+                            let end = CLLocation(latitude: endCoord["lat"] as! Double!, longitude: endCoord["long"] as! Double!)
+                            
+                            otherRides.append(Ride(r: Route(start: start.coordinate, end: end.coordinate),partner: key as! String))
+                        }
+                    }
                 }
             }
             // ...
         }) { (error) in
             print(error.localizedDescription)
         }
-        // TODO: Load rides from file
-    }
-    
-    func otherUserRides() -> [Ride] {
-        var otherRides = [Ride]()
-        
+
         return otherRides
     }
     
