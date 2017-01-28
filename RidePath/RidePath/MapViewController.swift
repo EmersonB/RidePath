@@ -14,9 +14,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    var startCoordinate: CLLocationCoordinate2D?
+    var startItem: MKMapItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.showsUserLocation = true
+        mapView.delegate = self
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressOnMap(sender:)))
         mapView.addGestureRecognizer(longPressRecognizer)
         guard (FIRAuth.auth()?.currentUser) != nil else {
@@ -70,18 +74,71 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let annotation = MKPointAnnotation()
             annotation.coordinate = newCoordinates
             mapView.addAnnotation(annotation)
-            let alertController = UIAlertController(title: "Add Route", message: "Would you like to add a new route with this location?", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
-                self.mapView.removeAnnotation(annotation)
-            })
-            let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
-                let homeAddress = UserDefaults.standard.object(forKey: kHomeAddressKey) as! CLLocationCoordinate2D
-                RouteModel.sharedInstance.addRoute(start: homeAddress, end: annotation.coordinate)
-            })
-            alertController.addAction(cancelAction)
-            alertController.addAction(addAction)
-            self.present(alertController, animated: true, completion: nil)
+            if startCoordinate == nil {
+                let alertController = UIAlertController(title: "Add Route", message: "Would you like to add a new route starting at this location?", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                    self.mapView.removeAnnotation(annotation)
+                })
+                let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
+                    self.startCoordinate = annotation.coordinate
+                    let sourcePlacemark = MKPlacemark(coordinate: annotation.coordinate, addressDictionary: nil)
+                    self.startItem = MKMapItem(placemark: sourcePlacemark)
+                    //let homeAddress = UserDefaults.standard.object(forKey: kHomeAddressKey) as! CLLocationCoordinate2D
+                    //RouteModel.sharedInstance.addRoute(start: homeAddress, end: annotation.coordinate)
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(addAction)
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                let alertController = UIAlertController(title: "Add Route", message: "Would you like to create the route ending at this location?", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                    self.mapView.removeAnnotation(annotation)
+                })
+                let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
+                    let directionRequest = MKDirectionsRequest()
+                    directionRequest.source = self.startItem!
+                    let sourcePlacemark = MKPlacemark(coordinate: annotation.coordinate, addressDictionary: nil)
+                    let endItem = MKMapItem(placemark: sourcePlacemark)
+                    directionRequest.destination = endItem
+                    directionRequest.transportType = .automobile
+                    
+                    let directions = MKDirections(request: directionRequest)
+                    
+                    directions.calculate {
+                        (response, error) -> Void in
+                        
+                        guard let response = response else {
+                            if let error = error {
+                                print("Error: \(error)")
+                            }
+                            
+                            return
+                        }
+                        
+                        let route = response.routes[0]
+                        print("route: \(route)")
+                        self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
+                        
+                        let rect = route.polyline.boundingMapRect
+                        self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+                    }
+                    
+                    RouteModel.sharedInstance.addRoute(start: self.startCoordinate!, end: annotation.coordinate)
+                    self.startCoordinate = nil
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(addAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.red
+        renderer.lineWidth = 4.0
+        
+        return renderer
     }
     
 

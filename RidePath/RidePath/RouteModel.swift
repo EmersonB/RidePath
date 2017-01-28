@@ -8,6 +8,8 @@
 
 import Foundation
 import MapKit
+import Firebase
+import FirebaseAuth
 
 class RouteModel {
     static let sharedInstance = RouteModel()
@@ -19,15 +21,25 @@ class RouteModel {
     }
     
     func addRoute(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D) {
-        routes.append(Route(start: start, end: end))
+        let route = Route(start: start, end: end)
+        routes.append(route)
         saveRoutes()
     }
     
     func loadRoutes() {
+        routes = [Route]()
         // TODO: Load routes from file
     }
     
     func saveRoutes() {
+        if let userID = FIRAuth.auth()?.currentUser?.uid {
+            ref = FIRDatabase.database().reference().child("users/\(userID)/routes")
+            for route in routes {
+                let childRef = ref.childByAutoId()
+                childRef.child("start").updateChildValues(["lat": route.startCoordinate.latitude, "long": route.startCoordinate.longitude])
+                childRef.child("end").updateChildValues(["lat": route.endCoordinate.latitude, "long": route.endCoordinate.longitude])
+            }
+        }
         // TODO: Save routes to file
     }
 }
