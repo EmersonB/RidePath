@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RidePath" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="RidePath" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-434" y="-380"/>
         </scene>
-        <!--View Controller-->
+        <!--Rides View Controller-->
         <scene sceneID="fnd-Ym-WWe">
             <objects>
-                <viewController id="Sfo-pe-OrW" sceneMemberID="viewController">
+                <viewController id="Sfo-pe-OrW" customClass="RidesViewController" customModule="RidePath" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fHT-NZ-qW1"/>
                         <viewControllerLayoutGuide type="bottom" id="MNd-ED-4Xh"/>
@@ -46,10 +46,10 @@
             </objects>
             <point key="canvasLocation" x="1376.8" y="306.29685157421289"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="XTp-ha-55w">
             <objects>
-                <viewController id="M0s-6r-Tch" sceneMemberID="viewController">
+                <viewController id="M0s-6r-Tch" customClass="ProfileViewController" customModule="RidePath" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jQE-Qd-oP5"/>
                         <viewControllerLayoutGuide type="bottom" id="WAm-oZ-tvR"/>
@@ -65,10 +65,10 @@
             </objects>
             <point key="canvasLocation" x="1376.8" y="1020.5397301349326"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="K3O-hV-bh9">
             <objects>
-                <viewController id="g8c-KS-ZaJ" sceneMemberID="viewController">
+                <viewController id="g8c-KS-ZaJ" customClass="MapViewController" customModule="RidePath" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dpI-bP-k2F"/>
                         <viewControllerLayoutGuide type="bottom" id="PML-8B-339"/>
@@ -76,11 +76,25 @@
                     <view key="view" contentMode="scaleToFill" id="4Oa-5V-fWg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BST-Fc-uxJ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BST-Fc-uxJ" firstAttribute="top" secondItem="dpI-bP-k2F" secondAttribute="bottom" id="HIB-bL-L3q"/>
+                            <constraint firstItem="PML-8B-339" firstAttribute="top" secondItem="BST-Fc-uxJ" secondAttribute="bottom" id="bBl-bR-duU"/>
+                            <constraint firstItem="BST-Fc-uxJ" firstAttribute="leading" secondItem="4Oa-5V-fWg" secondAttribute="leading" id="bcj-mx-z5y"/>
+                            <constraint firstAttribute="trailing" secondItem="BST-Fc-uxJ" secondAttribute="trailing" id="v5x-5s-m44"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QTh-Rg-7GA">
-                        <barButtonItem key="rightBarButtonItem" title="Routes" id="G2m-KT-OYY"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="G2m-KT-OYY"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="BST-Fc-uxJ" id="4ju-uT-F5C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Juj-6K-zC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
