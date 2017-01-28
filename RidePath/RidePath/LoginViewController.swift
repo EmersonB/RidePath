@@ -8,11 +8,14 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
+
 
 class LoginViewController: UIViewController {
 
     @IBOutlet var userNameField: UITextField!
     @IBOutlet var passwordField: UITextField!
+    var ref: FIRDatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +73,8 @@ class LoginViewController: UIViewController {
                                 }
                             }
                         } else {
+                            self.ref = FIRDatabase.database().reference()
+                            self.ref.child("id/username").setValue(email)
                             self.dismiss(animated: true, completion: nil)
                         }
                     }
