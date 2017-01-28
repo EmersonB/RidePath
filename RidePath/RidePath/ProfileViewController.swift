@@ -62,6 +62,16 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func didTapLogout(_ sender: Any) {
+        let firebaseAuth = FIRAuth.auth()
+        do {
+            try firebaseAuth?.signOut()
+            performSegue(withIdentifier: "logoutSegue", sender: nil)
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+    }
 
     /*
     // MARK: - Navigation

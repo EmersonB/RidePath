@@ -197,13 +197,27 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhV-xz-Y73">
                                         <rect key="frame" x="0.0" y="168" width="312" height="30"/>
-                                        <state key="normal" title="Update"/>
+                                        <state key="normal" title="Update">
+                                            <color key="titleColor" red="0.90980392160000001" green="0.49803921569999998" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="didTapUpdate:" destination="M0s-6r-Tch" eventType="touchUpInside" id="FAT-b5-6fk"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyQ-p1-Ye9">
+                                <rect key="frame" x="125" y="558" width="124" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleColor" red="0.90980392160000001" green="0.49803921569999998" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KzI-a2-7i7"/>
+                                    <action selector="didTapLogout:" destination="M0s-6r-Tch" eventType="touchUpInside" id="Rdi-LZ-A1k"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -230,6 +244,7 @@
                         <outlet property="userImage" destination="fOm-o7-1EL" id="eVw-pJ-jKt"/>
                         <outlet property="usernameLabel" destination="TCI-eO-1ao" id="Tmz-yB-IEv"/>
                         <outlet property="usernameOutlet" destination="BkK-Ja-hYc" id="MHc-LA-0Fw"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="logoutSegue" id="wNW-2Q-lIq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8xn-1M-Acw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -384,4 +399,7 @@
         <image name="cartoonbeachbg" width="375" height="245"/>
         <image name="defaultuser" width="60" height="60"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="wNW-2Q-lIq"/>
+    </inferredMetricsTieBreakers>
 </document>
