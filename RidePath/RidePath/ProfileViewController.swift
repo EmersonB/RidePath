@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController {
 
     @IBAction func didTapUpdate(_ sender: Any) {
         if let userID = FIRAuth.auth()?.currentUser?.uid{
-        ref.child("users").child(userID).setValue(["username": usernameOutlet.text,"carmodel": carModelOutlet.text,"seats": seatsOutlet.text,"homeaddress": homeOutlet.text])
+        ref.child("users").child(userID).updateChildValues(["username": usernameOutlet.text,"carmodel": carModelOutlet.text,"seats": seatsOutlet.text,"homeaddress": homeOutlet.text])
         usernameLabel.text = usernameOutlet.text
         }
     }
