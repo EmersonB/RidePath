@@ -36,7 +36,7 @@
                                 <rect key="frame" x="64" y="406" width="249" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.80000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ggH-hZ-MD6">
                                 <rect key="frame" x="63" y="444" width="250" height="30"/>
@@ -398,9 +398,9 @@
         <image name="car-logo" width="128" height="128"/>
         <image name="cartoonbeachbg" width="375" height="245"/>
         <image name="defaultuser" width="60" height="60"/>
-        <image name="map" width="33" height="33"/>
-        <image name="people" width="33" height="33"/>
-        <image name="user" width="33" height="33"/>
+        <image name="map" width="22" height="22"/>
+        <image name="people" width="22" height="22"/>
+        <image name="user" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wNW-2Q-lIq"/>

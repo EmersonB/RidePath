@@ -12,7 +12,7 @@ import FirebaseAuth
 
 let kHomeAddressKey = "kHomeAddressKey"
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITextFieldDelegate {
 
     var ref: FIRDatabaseReference!
     @IBOutlet var userImage: UIImageView!
@@ -23,6 +23,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet var homeOutlet: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameOutlet.delegate = self
+        carModelOutlet.delegate = self
+        seatsOutlet.delegate = self
+        homeOutlet.delegate = self
         self.userImage.layer.cornerRadius = self.userImage.frame.size.width / 2;
         self.userImage.clipsToBounds = true;
         
@@ -76,6 +80,15 @@ class ProfileViewController: UIViewController {
             print ("Error signing out: %@", signOutError)
         }
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
     /*
