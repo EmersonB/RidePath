@@ -68,7 +68,15 @@ class RideModel {
                     myRoutes.append(start,end)
                 }
             }
-            // ...
+        let otherRides = self.otherUserRides()
+            
+        self.checkRides(myRoutes: myRoutes, otherRides: otherRides)
+        // for each other user
+            // otherUserRides.append(Ride(Route(start, end), uuid))
+            
+        // for each otherUserRides
+            // if close to each other:
+                // self.rides.append(other ride)
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -92,6 +100,16 @@ class RideModel {
             print(error.localizedDescription)
         }
         // TODO: Load rides from file
+    }
+    
+    func otherUserRides() -> [Ride] {
+        var otherRides = [Ride]()
+        
+        return otherRides
+    }
+    
+    func checkRides(myRoutes: [(CLLocation,CLLocation)], otherRides: [Ride]) {
+        
     }
     
     func saveRides() {
