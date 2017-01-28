@@ -44,7 +44,6 @@ class LoginViewController: UIViewController {
                             }
                         } else {
                             self.dismiss(animated: true, completion: nil)
-                            self.performSegue(withIdentifier: "loggedIn", sender: nil)
                         }
                     })
                 }
@@ -72,7 +71,6 @@ class LoginViewController: UIViewController {
                             }
                         } else {
                             self.dismiss(animated: true, completion: nil)
-                            self.performSegue(withIdentifier: "loggedIn", sender: nil)
                         }
                     }
                 }

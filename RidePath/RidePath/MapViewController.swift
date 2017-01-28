@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import FirebaseAuth
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
@@ -18,6 +19,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.showsUserLocation = true
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressOnMap(sender:)))
         mapView.addGestureRecognizer(longPressRecognizer)
+        guard (FIRAuth.auth()?.currentUser) != nil else {
+            self.performSegue(withIdentifier: "showLoginSegue", sender: self)
+            return
+        }
         // Do any additional setup after loading the view.
     }
 
