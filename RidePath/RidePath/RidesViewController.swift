@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Firebase
 
 class RidesViewController: UITableViewController {
-
+    
+var ref: FIRDatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableView.self, forCellReuseIdentifier: "cellID")

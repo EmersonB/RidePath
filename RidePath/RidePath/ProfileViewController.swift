@@ -66,6 +66,11 @@ class ProfileViewController: UIViewController {
         let firebaseAuth = FIRAuth.auth()
         do {
             try firebaseAuth?.signOut()
+            self.usernameLabel.text = ""
+            self.usernameOutlet.text = ""
+            self.carModelOutlet.text = ""
+            self.seatsOutlet.text = ""
+            self.homeOutlet.text = ""
             performSegue(withIdentifier: "logoutSegue", sender: nil)
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)

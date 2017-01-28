@@ -46,10 +46,51 @@ class RouteModel {
 
 class RideModel {
     static let sharedInstance = RideModel()
-    
+    var ref: FIRDatabaseReference!
     var rides: [Ride]!
     
     func loadRides() {
+        rides = [Ride]()
+        var myRoutes = [(CLLocation,CLLocation)]()
+        ref = FIRDatabase.database().reference()
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        ref.child("users").child(userID!).child("routes").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if let routes = snapshot.value as? NSDictionary{
+                for route in routes{
+                    let myRoute = route as! NSDictionary
+                    let startCoord = myRoute["start"] as! NSDictionary
+                    let endCoord = myRoute["end"] as! NSDictionary
+                    
+                    let start = CLLocation(latitude: startCoord["lat"] as! Double!, longitude: startCoord["long"] as! Double!)
+                    let end = CLLocation(latitude: endCoord["lat"] as! Double!, longitude: endCoord["long"] as! Double!)
+                    
+                    myRoutes.append(start,end)
+                }
+            }
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if let routes = snapshot.value as? NSDictionary{
+                for route in routes{
+                    let myRoute = route as! NSDictionary
+                    let startCoord = myRoute["start"] as! NSDictionary
+                    let endCoord = myRoute["end"] as! NSDictionary
+                    
+                    let start = CLLocation(latitude: startCoord["lat"] as! Double!, longitude: startCoord["long"] as! Double!)
+                    let end = CLLocation(latitude: endCoord["lat"] as! Double!, longitude: endCoord["long"] as! Double!)
+                    
+                    myRoutes.append(start,end)
+                }
+            }
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         // TODO: Load rides from file
     }
     
