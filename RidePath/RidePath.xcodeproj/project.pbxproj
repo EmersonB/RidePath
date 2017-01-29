@@ -11,6 +11,7 @@
 		09C7971F1E3CF05B00D81395 /* RidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7971E1E3CF05B00D81395 /* RidesViewController.swift */; };
 		09C797211E3CF06100D81395 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C797201E3CF06100D81395 /* ProfileViewController.swift */; };
 		09D0FDC21E3CF49E00FF6931 /* RouteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D0FDC11E3CF49E00FF6931 /* RouteModel.swift */; };
+		09D0FDC51E3D6F6A00FF6931 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D0FDC41E3D6F6A00FF6931 /* MapKit.framework */; };
 		63066DB81E3CED42002E2478 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63066DB71E3CED42002E2478 /* AppDelegate.swift */; };
 		63066DBA1E3CED43002E2478 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63066DB91E3CED43002E2478 /* LoginViewController.swift */; };
 		63066DBD1E3CED43002E2478 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63066DBB1E3CED43002E2478 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		09C7971E1E3CF05B00D81395 /* RidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RidesViewController.swift; sourceTree = "<group>"; };
 		09C797201E3CF06100D81395 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		09D0FDC11E3CF49E00FF6931 /* RouteModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteModel.swift; sourceTree = "<group>"; };
+		09D0FDC41E3D6F6A00FF6931 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1D5E80966578F23A0D42BE6D /* Pods_RidePath.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RidePath.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63066DB41E3CED42002E2478 /* RidePath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RidePath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63066DB71E3CED42002E2478 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D0FDC51E3D6F6A00FF6931 /* MapKit.framework in Frameworks */,
 				E09B3D7EB2F7C11ADD0E37B7 /* Pods_RidePath.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +162,7 @@
 		FCAF63E2BD945E58C46E14A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				09D0FDC41E3D6F6A00FF6931 /* MapKit.framework */,
 				1D5E80966578F23A0D42BE6D /* Pods_RidePath.framework */,
 			);
 			name = Frameworks;
@@ -237,6 +241,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = TEU2P2V67X;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					63066DC71E3CED43002E2478 = {
 						CreatedOnToolsVersion = 8.2.1;

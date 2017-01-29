@@ -21,6 +21,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         mapView.showsUserLocation = true
         mapView.delegate = self
+        let trackingButton = MKUserTrackingBarButtonItem(mapView: mapView)
+        navigationItem.leftBarButtonItem = trackingButton
+        /*MKUserTrackingBarButtonItem *trackingButton = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
+        NSMutableArray *items = [[NSMutableArray alloc] initWithArray:[self.toolbar items]];
+        [items insertObject:trackingButton atIndex:0];
+        [self.toolbar setItems:items];*/
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressOnMap(sender:)))
         mapView.addGestureRecognizer(longPressRecognizer)
         guard (FIRAuth.auth()?.currentUser) != nil else {
@@ -28,6 +34,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             return
         }
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkLocationAuthorized()
     }
 
     override func didReceiveMemoryWarning() {
@@ -139,6 +150,37 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         renderer.lineWidth = 4.0
         
         return renderer
+    }
+    
+    /*CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    // If the status is denied or only granted for when in use, display an alert
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusDenied) {
+    NSLog(@"Denied");
+    NSString *title =  (status == kCLAuthorizationStatusDenied) ? @"Location services are off" : @"Background location is not enabled";
+    NSString *message = @"To use background location you must turn on 'Always' in the Location Services Settings";
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:settingsAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+    }
+    
+    else if (status == kCLAuthorizationStatusNotDetermined) {
+    NSLog(@"Not determined");
+    if([self.manager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+    [self.manager requestAlwaysAuthorization];
+    }
+    }*/
+    let manager = CLLocationManager()
+    func checkLocationAuthorized() {
+        let status = CLLocationManager.authorizationStatus()
+        //if (status == CLAuthorizationStatus.denied || status == CLAuthorizationStatus.notDetermined) {
+            manager.requestWhenInUseAuthorization()
+        //}
     }
     
 
