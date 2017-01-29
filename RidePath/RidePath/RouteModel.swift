@@ -11,6 +11,8 @@ import MapKit
 import Firebase
 import FirebaseAuth
 
+let kRidesUpdatedNotification = "kRidesUpdatedNotification"
+
 class RouteModel {
     static let sharedInstance = RouteModel()
     
@@ -58,23 +60,21 @@ class RideModel {
         ref.child("users").child(userID!).child("routes").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if let routes = snapshot.value as? NSDictionary{
-                for route in routes{
-                    let myRoute = route as! NSDictionary
+                for key in routes.allKeys {
+                    let myRoute = routes[key] as! NSDictionary
                     let startCoord = myRoute["start"] as! NSDictionary
                     let endCoord = myRoute["end"] as! NSDictionary
                     
                     let start = CLLocation(latitude: startCoord["lat"] as! Double!, longitude: startCoord["long"] as! Double!)
                     let end = CLLocation(latitude: endCoord["lat"] as! Double!, longitude: endCoord["long"] as! Double!)
-                    
+                    print("appending motherfucker")
                     myRoutes.append(start,end)
                 }
             }
+            self.otherUserRides(myRoutes: myRoutes)
         }) { (error) in
             print(error.localizedDescription)
         }
-        let otherRides = self.otherUserRides()
-            
-        self.checkRides(myRoutes: myRoutes, otherRides: otherRides)
         // for each other user
             // otherUserRides.append(Ride(Route(start, end), uuid))
             
@@ -83,39 +83,52 @@ class RideModel {
                 // self.rides.append(other ride)
         
         // TODO: Load rides from file
+        print(self.rides)
     }
     
-    func otherUserRides() -> [Ride] {
+    func otherUserRides(myRoutes: [(CLLocation,CLLocation)]) {
         var otherRides = [Ride]()
         ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if let users = snapshot.value as? NSDictionary{
                 for key in users.allKeys {
-                    let user = users[key] as? NSDictionary
-                    let userRoutes = user?["routes"] as! NSDictionary
-                    for routes in userRoutes{
-                        for route in (routes as? NSDictionary)!{
-                            let myRoute = route as! NSDictionary
-                            let startCoord = myRoute["start"] as! NSDictionary
-                            let endCoord = myRoute["end"] as! NSDictionary
-                            
-                            let start = CLLocation(latitude: startCoord["lat"] as! Double!, longitude: startCoord["long"] as! Double!)
-                            let end = CLLocation(latitude: endCoord["lat"] as! Double!, longitude: endCoord["long"] as! Double!)
-                            
-                            otherRides.append(Ride(r: Route(start: start.coordinate, end: end.coordinate),partner: key as! String))
+                    print("1")
+                    if key as? String != FIRAuth.auth()?.currentUser?.uid {
+                        let user = users[key] as? NSDictionary
+                        if let userRoutes = user?["routes"] as? NSDictionary {
+                            for userRoutesKey in userRoutes.allKeys {
+                                print("2")
+                                print("2.25 \(userRoutes[userRoutesKey]) //////// \(userRoutes)")
+                                if let route = userRoutes[userRoutesKey] as? NSDictionary {
+                                    print("2.5")
+                                    //for routeKey in routes.allKeys {
+                                        print("3")
+                                        //let route = routes[routeKey]
+                                        print("4 \(route)")
+                                        let myRoute = route as! NSDictionary
+                                        let startCoord = myRoute["start"] as! NSDictionary
+                                        let endCoord = myRoute["end"] as! NSDictionary
+                                        
+                                        let start = CLLocation(latitude: startCoord["lat"] as! Double!, longitude: startCoord["long"] as! Double!)
+                                        let end = CLLocation(latitude: endCoord["lat"] as! Double!, longitude: endCoord["long"] as! Double!)
+                                        
+                                        otherRides.append(Ride(r: Route(start: start.coordinate, end: end.coordinate),partner: key as! String))
+                                    //}
+                                }
+                            }
                         }
                     }
                 }
             }
-            // ...
+            self.checkRides(myRoutes: myRoutes, otherRides: otherRides)
         }) { (error) in
             print(error.localizedDescription)
         }
-        
-        return otherRides
     }
     
     func checkRides(myRoutes: [(CLLocation,CLLocation)], otherRides: [Ride]) {
+        print("myroutes \(myRoutes)")
+        print("otherrides \(otherRides)")
         for route in myRoutes {
             for otherRide in otherRides {
                 let myStart = route.0
@@ -129,10 +142,12 @@ class RideModel {
                 let endDistance = myEnd.distance(from: otherEnd)
                 
                 if startDistance <= kMaxDistance && endDistance <= kMaxDistance {
-                    rides.append(Ride(r: Route(start: route.0.coordinate, end: route.1.coordinate), partner: otherRide.partnerID))
+                    self.rides.append(Ride(r: Route(start: route.0.coordinate, end: route.1.coordinate), partner: otherRide.partnerID))
+                print("appending \(self.rides)")
                 }
             }
         }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kRidesUpdatedNotification), object: nil)
     }
     
     func saveRides() {

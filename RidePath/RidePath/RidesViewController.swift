@@ -15,8 +15,14 @@ var ref: FIRDatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableView.self, forCellReuseIdentifier: "cellID")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: kRidesUpdatedNotification), object: nil, queue: OperationQueue.main) { (note) in
+            print("recieved notification")
+            print(RideModel.sharedInstance.rides)
+            self.tableView.reloadData()
+        }
         RideModel.sharedInstance.loadRides()
+        print("RIDESRIDESRIASDFIJAOSFJA;SLDFJALSDJFALSDJF;LASDJF;ASDJF;LASJDF;LASJDFAJSF;LJASDF;LAJSDDF;LAJSDF;LAJSDF;LJASDF;LJSF \(RideModel.sharedInstance.rides)")
         // Do any additional setup after loading the view.
     }
 
@@ -26,6 +32,7 @@ var ref: FIRDatabaseReference!
     }
     
     func rideFor(indexPath: IndexPath) -> Ride {
+        print("hi")
         return RideModel.sharedInstance.rides[indexPath.row]
     }
     
@@ -36,6 +43,7 @@ var ref: FIRDatabaseReference!
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
         let ride = rideFor(indexPath: indexPath)
+        print(ride.partnerID)
         cell.textLabel?.text = ride.partnerID
         
         return cell
