@@ -44,7 +44,7 @@ var ref: FIRDatabaseReference!
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
         let ride = rideFor(indexPath: indexPath)
         print(ride.partnerID)
-        cell.textLabel?.text = ride.partnerID
+        cell.textLabel?.text = ride.email
         
         return cell
     }

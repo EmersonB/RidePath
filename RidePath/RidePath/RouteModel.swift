@@ -112,7 +112,7 @@ class RideModel {
                                         let start = CLLocation(latitude: startCoord["lat"] as! Double!, longitude: startCoord["long"] as! Double!)
                                         let end = CLLocation(latitude: endCoord["lat"] as! Double!, longitude: endCoord["long"] as! Double!)
                                         
-                                        otherRides.append(Ride(r: Route(start: start.coordinate, end: end.coordinate),partner: key as! String))
+                                    otherRides.append(Ride(r: Route(start: start.coordinate, end: end.coordinate),partner: key as! String, e:""))
                                     //}
                                 }
                             }
@@ -142,12 +142,24 @@ class RideModel {
                 let endDistance = myEnd.distance(from: otherEnd)
                 
                 if startDistance <= kMaxDistance && endDistance <= kMaxDistance {
-                    self.rides.append(Ride(r: Route(start: route.0.coordinate, end: route.1.coordinate), partner: otherRide.partnerID))
-                print("appending \(self.rides)")
+                    print(otherRide.partnerID)
+                    ref.child("ids").child(otherRide.partnerID).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
+                        // Get user value
+                        let value = snapshot.value as? String
+                        print("elb"+value!)
+                        //let email = value?["username"] as! String
+                        self.rides.append(Ride(r: Route(start: route.0.coordinate, end: route.1.coordinate), partner: otherRide.partnerID, e:value!))
+                        print("appending \(self.rides)")
+                        print("email \(value!)")
+                        // ...
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kRidesUpdatedNotification), object: nil)
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
+                    
                 }
             }
         }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kRidesUpdatedNotification), object: nil)
     }
     
     func saveRides() {
@@ -179,21 +191,26 @@ class Route : NSObject, NSCoding {
 
 class Ride : NSObject, NSCoding {
     var route: Route!
+    var email: String!
     var partnerID: String! // UID that can retrieve user from Firebase
     
-    init(r: Route, partner: String) {
+    init(r: Route, partner: String, e:String) {
         route = r
         partnerID = partner
+        email = e
     }
     
     required init?(coder aDecoder: NSCoder) {
         route = aDecoder.decodeObject(forKey: "self.route") as! Route
         partnerID = aDecoder.decodeObject(forKey: "self.partnerID") as! String
+        email = aDecoder.decodeObject(forKey: "self.email") as! String
+
         super.init()
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(route, forKey: "self.route")
         aCoder.encode(partnerID, forKey: "self.partnerID")
+        aCoder.encode(email, forKey: "self.email")
     }
 }

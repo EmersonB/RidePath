@@ -85,7 +85,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             }
                         } else {
                             self.ref = FIRDatabase.database().reference()
-                            self.ref.child("id/username").setValue(email)
+                            if let userID = FIRAuth.auth()?.currentUser?.uid{
+                            self.ref.child("ids/\(userID)/username").setValue(email)
+                            }
                             self.dismiss(animated: true, completion: nil)
                         }
                     }
